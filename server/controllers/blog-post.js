@@ -4,7 +4,8 @@ const BlogPost = require('../models/blog-post');
 
 async function getAllBlogPosts(req, res) {
     try {
-        const posts = await BlogPost.find();
+        const posts = await BlogPost.find({});
+        // console.log(posts)
         res.json(posts);
     } catch (error) {
         console.error(error);
@@ -13,13 +14,13 @@ async function getAllBlogPosts(req, res) {
 }
 
 async function addBlogPost(req, res) {
-    const { title, content, author } = req.body;
+    const { title, content, tags, likes, author } = req.body;
     if (!title || !content || !author) {
-        return res.status(400).json({ message: "Title, content, and author are required." });
+        return res.status(422).json({ message: "Unprocessable Entity" });
     }
 
     try {
-        const newPost = await BlogPost.create({ title, content, author });
+        const newPost = await BlogPost.create({ title, content, tags, likes, author });
         res.status(201).json(newPost);
     } catch (error) {
         console.error(error);
@@ -28,7 +29,7 @@ async function addBlogPost(req, res) {
 }
 
 async function getOneBlogPost(req, res) {
-    const postId = req.params.POST_ID;
+    const postId = req.params.id;
     try {
         const post = await BlogPost.findById(postId);
         if (!post) {
@@ -66,7 +67,7 @@ async function filterBlogPosts(req, res) {
 }
 
 async function updateBlogPost(req, res) {
-    const postId = req.params.POST_ID;
+    const postId = req.params.id;
     const updates = req.body;
     try {
         const updatedPost = await BlogPost.findByIdAndUpdate(postId, updates, { new: true });
@@ -81,13 +82,14 @@ async function updateBlogPost(req, res) {
 }
 
 async function removeBlogPost(req, res) {
-    const postId = req.params.POST_ID;
+    const postId = req.params.id;
     try {
         const deletedPost = await BlogPost.findByIdAndDelete(postId);
         if (!deletedPost) {
             return res.status(422).json({ message: "Blog post not found" });
         }
-        res.json({ message: "Blog post deleted successfully" });
+        // res.json({ message: "Blog post deleted successfully" });
+        res.status(204).json();
     } catch (error) {
         console.error(error);
         res.status(422).json({ message: "An unexpected error occurred" });
@@ -95,7 +97,7 @@ async function removeBlogPost(req, res) {
 }
 
 async function updateLikes(req, res) {
-    const postId = req.params.POST_ID;
+    const postId = req.params.id;
     try {
         const updatedPost = await BlogPost.findByIdAndUpdate(postId, { $inc: { likes: 1 } }, { new: true });
         if (!updatedPost) {

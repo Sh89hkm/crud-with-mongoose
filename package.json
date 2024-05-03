@@ -12,7 +12,7 @@
     "stop": "docker-compose down",
     "test:app": "NODE_ENV=test mocha --exit --require mocha-steps ./server/tests",
     "test": "CONT=$(docker ps -aqf name=node-app) && [ $CONT ] && docker exec -t -w /backend-app $CONT npm run test:app",
-    "testOnWindows": "docker exec -it node-app npm run test:app"
+    "testOnWindows": "docker exec -it node-app npm run test:app "
   },
   "author": "",
   "license": "ISC",

@@ -2,7 +2,7 @@
 # yarn lockfile v1
 
 
-"@aws-crypto/crc32@3.0.0":
+"@aws-crypto/crc32@3.0.0 ":
   version "3.0.0"
   resolved "https://registry.npmjs.org/@aws-crypto/crc32/-/crc32-3.0.0.tgz"
   integrity sha512-IzSgsrxUcsrejQbPVilIKy16kAT52EwB6zSaI+M3xxIhKh5+aldEyvI+z6erM7TCLB2BJsFrtHjp6/4/sr+3dA==

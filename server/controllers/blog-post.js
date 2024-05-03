@@ -4,7 +4,6 @@ const BlogPost = require('../models/blog-post');
 
 async function getAllBlogPosts(_, res) {
     try {
-        // BlogPost
         const posts = await BlogPost.find();
         // console.log(posts)
         res.json(posts);

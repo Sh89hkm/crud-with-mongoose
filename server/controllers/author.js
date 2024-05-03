@@ -2,7 +2,6 @@ const BlogPost = require('../models/blog-post');
 
 async function getAllAuthors(_, res) {
     try {
-        // BlogPost
         const authors = await BlogPost.distinct("author");
         const uniqueAuthors = Object.values(authors)
                                     // .filter(author => author.name !== undefined) // Filter out objects where name is undefined

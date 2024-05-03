@@ -260,7 +260,6 @@ describe("Fetching blog posts", () => {
         if (err) return done(err);
         expect(res.body).to.be.an("array");
         res.body.forEach((blogPost, index) => {
-        // if (blogPosts[index]) 
         expect(blogPost.title).to.equal(blogPosts[index].title);
         });
         done();
